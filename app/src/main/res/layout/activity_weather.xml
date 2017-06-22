@@ -1,26 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context="com.shiyuan.coolweathertest.WeatherActivity">
 
-    <TextView
-        android:id="@+id/title_city"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textColor="#fff"
-        android:textSize="20sp"/>
+    <ImageView
+        android:id="@+id/bing_pic_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
 
-    <TextView
-        android:id="@+id/title_update_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:textColor="#fff"
-        android:textSize="16sp"/>
+    <ScrollView
+        android:id="@+id/weather_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:overScrollMode="never" >
 
-</RelativeLayout>
+        <LinearLayout
+            android:fitsSystemWindows="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/titile"/>
+            <include layout="@layout/now"/>
+            <include layout="@layout/forecast"/>
+            <include layout="@layout/aqi"/>
+            <include layout="@layout/suggestion"/>
+
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>
