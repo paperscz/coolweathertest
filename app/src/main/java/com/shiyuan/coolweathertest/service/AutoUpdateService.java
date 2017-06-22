@@ -42,22 +42,25 @@ public class AutoUpdateService extends Service {
     }
 
 
-    private void updateWeather() {
+    /**
+     * 更新天气信息。
+     */
+    private void updateWeather(){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String weatherString = prefs.getString("weather",null);
-        if(weatherString != null){
+        String weatherString = prefs.getString("weather", null);
+        if (weatherString != null) {
+            // 有缓存时直接解析天气数据
             Weather weather = Utility.handleWeatherResponse(weatherString);
             String weatherId = weather.basic.weatherId;
-            String wetaherUrl = "http://guolin.tech/api/weather?cityid="+weatherId+"&key=9012a57c8eda49e79b0ad159eb3ccc8a";
-            HttpUtil.sendOKHttpRequst(weatherId, new Callback() {
-
+            String weatherUrl = "https://api.heweather.com/x3/weather?cityid=" + weatherId + "&key=bc0418b57b2d4918819d3974ac1285d9";
+            HttpUtil.sendOKHttpRequst(weatherUrl, new Callback() {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String responseText = response.body().string();
                     Weather weather = Utility.handleWeatherResponse(responseText);
-                    if(weather != null && "ok".equals(weather.status)){
+                    if (weather != null && "ok".equals(weather.status)) {
                         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(AutoUpdateService.this).edit();
-                        editor.putString("weather",responseText);
+                        editor.putString("weather", responseText);
                         editor.apply();
                     }
                 }
@@ -67,8 +70,6 @@ public class AutoUpdateService extends Service {
                     e.printStackTrace();
                 }
             });
-
-
         }
     }
 

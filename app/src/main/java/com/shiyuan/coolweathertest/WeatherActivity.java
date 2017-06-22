@@ -119,8 +119,7 @@ public class WeatherActivity extends AppCompatActivity {
 
 
     private void showWeatherInfo(Weather weather){
-        Intent intent = new Intent(this, AutoUpdateService.class);
-        startService(intent);
+
 
         String cityName = weather.basic.cityName;
         String updateTime = weather.basic.update.updateTime.split(" ")[1];
@@ -153,6 +152,9 @@ public class WeatherActivity extends AppCompatActivity {
         comfortText.setText(comfort);
         carWashText.setText(carWash);
         weatherLayout.setVisibility(View.VISIBLE);
+
+        Intent intent = new Intent(this, AutoUpdateService.class);
+        startService(intent);
     }
 
     public void requestWeather(final String weatherId){
